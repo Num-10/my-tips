@@ -6,11 +6,6 @@ loadMore: function () {
     $('.modal-dialog-body').scroll(function(){
       var scrollTop = wrapper.scrollTop;
       if (scrollTop + wrapper.clientHeight >= container.clientHeight) {
-          // 触发加载数据
-        console.log('lai');
-        var params = {},
-            filter = {page: material.fansPage+1};
-        // 触发加载数据
         if (material.scrollDisable) {
           console.log('lai');
           material.scrollDisable = false;

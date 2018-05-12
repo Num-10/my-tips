@@ -8,7 +8,6 @@ loadMore: function () {
       if (scrollTop + wrapper.clientHeight >= container.clientHeight) {
           // 触发加载数据
         console.log('lai');
-        material.scrollDisable = true;
         var params = {},
             filter = {page: material.fansPage+1};
         // 触发加载数据

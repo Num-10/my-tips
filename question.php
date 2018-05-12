@@ -1,4 +1,5 @@
 <?php 
+<?php
 # URL重写问题
 PHP5.5以上
 [ Apache ]规则这一行：

@@ -77,3 +77,10 @@ function show_array($countpage,$url){
 
 js使用history.back返回表单数据丢失的主要原因就是使用了session_start();的原因，该函数会强制当前页面不被缓存。
   https://blog.csdn.net/qinchaoguang123456/article/details/29852881
+
+#webp格式图片兼容文件
+<script>(function(){var WebP=new Image();WebP.onload=WebP.onerror=function(){
+if(WebP.height!=2){var sc=document.createElement('script');sc.type='text/javascript';sc.async=true;
+var s=document.getElementsByTagName('script')[0];sc.src='/js/webpjs.min.js';s.parentNode.insertBefore(sc,s);}};
+WebP.src='data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';})();
+</script>

@@ -1,0 +1,22 @@
+Thinkphp5.0
+  命名规范
+  目录小写+下划线
+  类文件名大驼峰（类名与类文件名一致），其他文件小写+下划线
+  函数小写+下划线
+  类方法名、类属性名为小驼峰
+  常量大写+下划线，配置参数小写+下划线
+  命名空间路径与类库文件路径一致
+  数据表和字段小写+下划线
+
+router.php用于php自带webserver支持，可用于快速测试
+启动命令：php -S localhost:8888 router.php
+
+在这种URL不区分大小写情况下，如果要访问驼峰法的控制器类，则需要使用：
+http://localhost/index.php/Index/blog_test/read
+
+控制器前置操作
+  $protected $beforeActionList = [
+    'before_index',
+    'before_add' => ['only' => 'add'],
+    'before_common' => ['except' => 'delete'],
+  ];

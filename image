@@ -1,0 +1,56 @@
+public function composite_image()
+{
+  $qrcodeimg = config('upyun')['static_url']['qrcodeimg'];          //上层图片
+  $bigImgPath = './public/mobile/img/jg.jpg';                       //背景图片
+  $bigImg = imagecreatefromstring(file_get_contents($bigImgPath));  //获取背景图
+  list($width, $height, $type) = getimagesize($qrcodeimg);          //获取上层图片参数
+  switch ($type) {
+    case 1:
+      $img = imagecreatefromgif($qrcodeimg);
+      break;
+    case 2:
+      $img = imagecreatefromjpeg($qrcodeimg);
+      break;
+    case 3:
+      $img = imagecreatefrompng($qrcodeimg);
+      break;
+    default:
+      $img = imagecreatefrompng($qrcodeimg);
+      break;
+  }
+  $canvas = imagecreatetruecolor(350, 350);                                   // 创建一个真彩画布
+  imagecopyresampled($canvas, $img, 0, 0, 0, 0, 350, 350, $width, $height);   //设定上层图片大小和位置
+  imagecopymerge($bigImg, $canvas, 200, 370, 0, 0, 350, 350, 100);            //设定背景图片大小和位置
+  list($bigWidth, $bigHight, $bigType) = getimagesize($bigImgPath);           //获取背景图参数
+  // ob_start();
+  $saveimg = './public/mobile/save_img/' . $this->uid;                        //合成图片保存路径
+  switch ($bigType) {
+    case 1:
+      header('Content-Type:image/gif');
+      $saveimg = $saveimg . '.gif';
+      imagegif($bigImg, $saveimg);
+      break;
+    case 2:
+      header('Content-Type:image/jpg');
+      $saveimg = $saveimg . '.jpg';
+      imagejpeg($bigImg, $saveimg);
+      break;
+    case 3:
+      header('Content-Type:image/png');
+      $saveimg = $saveimg . '.png';
+      imagepng($bigImg, $saveimg);
+      break;
+    default:
+      header('Content-Type:image/png');
+      $saveimg = $saveimg . '.png';
+      imagepng($bigImg, $saveimg);
+      break;
+  }
+  // $content = ob_get_clean();
+  imagedestroy($bigImg);    //销毁画布
+  imagedestroy($canvas);    //销毁画布
+  // return response($content, 200, ['Content-Length' => strlen($content)]);     //thinkphp5直接输出方式
+  $this->assign('saveimg', substr($saveimg, 1));
+  $this->assign('delimg', $saveimg);
+  return $this->fetch('common@phone/member/join_group');
+}

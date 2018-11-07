@@ -1,0 +1,66 @@
+###### 远程ajax获取数据基础用法
+
+    $("#search_brand").select2({
+        placeholder: '搜索',
+        language: {
+          noResults: function() {
+            return []
+          },
+          searching: function() {
+            return"搜索中…"
+          }
+        },
+        ajax: {
+           url: "{:url('brand/index')}",
+           dataType: 'json',
+           delay: 250,
+           data: function (params) {
+             return {
+              name: params.term, // search term
+              page: params.page
+             };
+           },
+           processResults: function (data, params) {
+             // parse the results into the format expected by Select2
+             // since we are using custom formatting functions we do not need to
+             // alter the remote JSON data, except to indicate that infinite
+             // scrolling can be used
+             params.page = params.page || 1;
+             if (params.term == '') {
+              datas = [];
+             } else {
+               lists = data.list;
+               datas = [];
+               if (data.list.total != 0) {
+                for(var i=0, len=lists.length; i<len; i++){
+                  selectObj = {
+                    'id': lists[i]['brand_id'] || '',
+                    'text': lists[i]['name_zh'] || '',
+                  };
+                  datas.push(selectObj);
+                }
+               } else {
+                datas = [];
+               }
+             }
+             return {
+               results: datas,
+               pagination: {
+                more: (params.page * 10) < data.list.total
+               }
+             };
+           },
+           cache: true
+        },
+        escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+        maximumResultsForSearch: 2,
+        // minimumInputLength: 1,
+        // templateResult: formatRepo, // omitted for brevity, see the source of this page
+        // templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+      });
+     
+###### 设置默认数据（可用于查询回显数据）
+
+      {if !empty($params.brand_id)}
+        $('#search_brand').html('<option value="' + '{$params.brand_id ?? ''}' + '">' + '{$params.brand_name ?? ''}' + '</option>').trigger("change");
+      {/if}

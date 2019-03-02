@@ -40,5 +40,8 @@ https://sphard.com/%E4%B8%80%E4%BA%9B%E5%85%8D%E8%B4%B9%E7%9A%84%E5%AD%A6%E4%B9%
 #申请Let's Encrypt通配符HTTPS证书
 https://my.oschina.net/kimver/blog/1634575#comment-list
 
+#docker签发和自动续期Let's Encrypt证书
+https://blog.newnius.com/automated-letsencrypt-certbot-with-docker.html
+
 #后端架构师技术图谱
 https://github.com/xingshaocheng/architect-awesome

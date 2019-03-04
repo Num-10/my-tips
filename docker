@@ -24,6 +24,7 @@ https://www.jianshu.com/p/0c48c2a968a5
 
   docker pull nginx
   docker run --name nginx -p 80:80 -d nginx
+  # docker 退出容器 
   docker exec -it nginx bash
       cd /etc/nginx/
       apt-get update
